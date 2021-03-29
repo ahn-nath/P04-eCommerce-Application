@@ -1,7 +1,8 @@
 package com.example.demo.controllers;
 
+import org.slf4j.LoggerFactory;
 
-
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,6 +31,8 @@ public class UserController {
 	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	public static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
@@ -49,6 +52,10 @@ public class UserController {
 		Cart cart = new Cart();
 		cartRepository.save(cart);
 		user.setCart(cart);
+		
+		// logging
+		log.info("User name set with", createUserRequest.getUsername());
+		
 		
 		// add validation: if password length is less than 7 OR the confirmed password does not match, return a 400 Bad Request response 
 		if(createUserRequest.getPassword().length()< 7 ||
