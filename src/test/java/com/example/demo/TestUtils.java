@@ -3,6 +3,8 @@ package com.example.demo;
 import java.lang.reflect.Field;
 
 public class TestUtils {
+	
+	@SuppressWarnings("deprecation")
 	public static void injectObject(Object target, String fieldName, Object toInject)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		boolean wasPrivate = false;
@@ -10,7 +12,7 @@ public class TestUtils {
 		Field f = target.getClass().getDeclaredField(fieldName);
 
 		// if the target is private, make it public (accessible)
-		if (!f.canAccess(f)) {
+		if(!f.canAccess(target)){
 			f.setAccessible(true);
 			wasPrivate = true;
 		}

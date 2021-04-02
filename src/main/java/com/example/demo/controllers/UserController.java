@@ -54,7 +54,7 @@ public class UserController {
 		user.setCart(cart);
 		
 		// logging
-		log.info("User name set with", createUserRequest.getUsername());
+		log.info("User name set with", user.getUsername());
 		
 		
 		// add validation: if password length is less than 7 OR the confirmed password does not match, return a 400 Bad Request response 

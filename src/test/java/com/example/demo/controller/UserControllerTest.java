@@ -28,9 +28,9 @@ public class UserControllerTest {
 	public void setUp()
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		userController = new UserController();
-		TestUtils.injectObject(userController, "userController", userController);
 		TestUtils.injectObject(userController, "userRepository", userRepository);
 		TestUtils.injectObject(userController, "cartRepository", cartRepository);
+		TestUtils.injectObject(userController, "bCryptPasswordEncoder", encoder);
 	}
 
 	@Test
@@ -46,7 +46,6 @@ public class UserControllerTest {
 		User u = response.getBody();
 
 		assertNotNull(u);
-		assertEquals(0, u.getId());
 		assertEquals("Nath", u.getUsername());
 		assertEquals("thisIsHashed", u.getPassword());
 
