@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 public class TestUtils {
 	
-	@SuppressWarnings("deprecation")
 	public static void injectObject(Object target, String fieldName, Object toInject)
 			throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		boolean wasPrivate = false;
