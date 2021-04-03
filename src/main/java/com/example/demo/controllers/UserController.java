@@ -22,29 +22,29 @@ import com.example.demo.model.requests.CreateUserRequest;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-
+	
 	@Autowired
 	private UserRepository userRepository;
-
+	
 	@Autowired
 	private CartRepository cartRepository;
-
+	
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
-
+	
 	public static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
 		return ResponseEntity.of(userRepository.findById(id));
 	}
-
+	
 	@GetMapping("/{username}")
 	public ResponseEntity<User> findByUserName(@PathVariable String username) {
 		User user = userRepository.findByUsername(username);
 		return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
 	}
-
+	
 	@PostMapping("/create")
 	public ResponseEntity<User> createUser(@RequestBody CreateUserRequest createUserRequest) {
 		User user = new User();
@@ -52,23 +52,23 @@ public class UserController {
 		Cart cart = new Cart();
 		cartRepository.save(cart);
 		user.setCart(cart);
-
+		
 		// logging
 		log.info("User name set with", user.getUsername());
-
-		// add validation: if password length is less than 7 OR the confirmed password
-		// does not match, return a 400 Bad Request response
-		if (createUserRequest.getPassword().length() < 7
-				|| !createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
-			// System.out.println("Error - Either length is less than 7 or pass and conf
-			// pass do not match. Unable to create ",
-			// createUserRequest.getUsername());
+		
+		
+		// add validation: if password length is less than 7 OR the confirmed password does not match, return a 400 Bad Request response 
+		if(createUserRequest.getPassword().length()< 7 ||
+				!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())){
+			//System.out.println("Error - Either length is less than 7 or pass and conf pass do not match. Unable to create ",
+			//		createUserRequest.getUsername());
 			return ResponseEntity.badRequest().build();
 		}
 		user.setPassword(bCryptPasswordEncoder.encode(createUserRequest.getPassword()));
-
+		
+		
 		userRepository.save(user);
 		return ResponseEntity.ok(user);
 	}
-
+	
 }
