@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.when;
+
+import java.util.Optional;
+
 import static org.mockito.Mockito.mock;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,21 +37,78 @@ public class UserControllerTest {
 	}
 
 	@Test
-	public void createUser() {
+	public void testCreateUser() {
 		when(encoder.encode("mypass123")).thenReturn("thisIsHashed");
 
-		CreateUserRequest r = new CreateUserRequest();
-		r.setUsername("Nath");
-		r.setPassword("mypass123");
-		r.setConfirmPassword("mypass123");
+		// create user
+		final ResponseEntity<User> responseCreateuser = createNewUser();
+		User u = responseCreateuser.getBody();
 
-		final ResponseEntity<User> response = userController.createUser(r);
-		User u = response.getBody();
-
+		// verify values
 		assertNotNull(u);
 		assertEquals("Nath", u.getUsername());
 		assertEquals("thisIsHashed", u.getPassword());
 
+	}
+
+
+	@Test
+	public void testFindUserById() throws Exception {
+		// create new user
+		final ResponseEntity<User> createdUserResponse = createNewUser();
+		assertNotNull(createdUserResponse);
+		assertEquals(200, createdUserResponse.getStatusCodeValue());
+
+		User u1 = createdUserResponse.getBody();
+		assertNotNull(u1);
+		assertEquals(0, u1.getId());
+		assertEquals("Nath", u1.getUsername());
+		assertEquals("thisIsHashed", u1.getPassword());
+
+		// find user by id
+		when(userRepository.findById(u1.getId())).thenReturn(Optional.of(u1));
+		final ResponseEntity<User> findUserById = userController.findById(u1.getId());
+		User u2 = findUserById.getBody();
+		assertEquals(200, findUserById.getStatusCodeValue());
+		assertEquals(0, u2.getId());
+		assertEquals("Nath", u2.getUsername());
+		assertEquals("thisIsHashed", u2.getPassword());
+	}
+	
+	@Test
+	public void testFindUserName() throws Exception {
+		// create new user
+		final ResponseEntity<User> createdUserResponse = createNewUser();
+		assertNotNull(createdUserResponse);
+		assertEquals(200, createdUserResponse.getStatusCodeValue());
+
+		User u1 = createdUserResponse.getBody();
+		assertNotNull(u1);
+		assertEquals(0, u1.getId());
+		assertEquals("Nath", u1.getUsername());
+		assertEquals("thisIsHashed", u1.getPassword());
+
+		// find user by id
+		when(userRepository.findByUsername(u1.getUsername())).thenReturn(u1);
+		final ResponseEntity<User> findUserByUsername = userController.findByUserName(u1.getUsername());
+		User u2 = findUserByUsername.getBody();
+		assertEquals(200, findUserByUsername.getStatusCodeValue());
+		assertEquals(0, u2.getId());
+		assertEquals("Nath", u2.getUsername());
+		assertEquals("thisIsHashed", u2.getPassword());
+	}
+
+	// helper methods
+	public ResponseEntity<User> createNewUser() {
+		when(encoder.encode("mypass123")).thenReturn("thisIsHashed");
+
+		CreateUserRequest userRequest = new CreateUserRequest();
+		userRequest.setUsername("Nath");
+		userRequest.setPassword("mypass123");
+		userRequest.setConfirmPassword("mypass123");
+
+		final ResponseEntity<User> response = userController.createUser(userRequest);
+		return response;
 	}
 
 }
