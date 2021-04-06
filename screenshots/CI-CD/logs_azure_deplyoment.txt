@@ -1,0 +1,28 @@
+2021-04-06T18:25:27.2988297Z ##[section]Starting: Download artifact - _Udacity Ecommerce App
+2021-04-06T18:25:27.3806735Z ==============================================================================
+2021-04-06T18:25:27.3807416Z Task         : Jenkins download artifacts
+2021-04-06T18:25:27.3807804Z Description  : Download artifacts produced by a Jenkins job
+2021-04-06T18:25:27.3808041Z Version      : 1.175.0
+2021-04-06T18:25:27.3808334Z Author       : Microsoft
+2021-04-06T18:25:27.3809458Z Help         : https://docs.microsoft.com/azure/devops/pipelines/tasks/utility/jenkins-download-artifacts
+2021-04-06T18:25:27.3809813Z ==============================================================================
+2021-04-06T18:25:28.3818924Z Downloading content from Jenkins server:http://52.152.224.145:8080//job/Udacity Ecommerce App//api/json with strict SSL:true
+2021-04-06T18:25:28.4791207Z Found job type hudson.model.FreeStyleProject
+2021-04-06T18:25:28.4797071Z Found Jenkins job details jobName:Udacity Ecommerce App, jobType:hudson.model.FreeStyleProject, buildId:11, branchName:undefined
+2021-04-06T18:25:29.3362542Z No associated artifacts found
+2021-04-06T18:25:29.3363122Z Successfully downloaded artifact to D:\a\r1\a\_Udacity Ecommerce App
+2021-04-06T18:25:29.3364800Z Downloading commits and work items
+2021-04-06T18:25:29.3366048Z Cannot find start build. Commits and workitems will be downloaded from build: 11
+2021-04-06T18:25:29.3366574Z Downloading commits associated with the build 11
+2021-04-06T18:25:29.3369635Z Downloading content from Jenkins server:http://52.152.224.145:8080//job/Udacity Ecommerce App//11/api/json?tree=number,result,actions[remoteUrls],changeSet[kind,items[commitId,date,msg,author[fullName]]] with strict SSL:true
+2021-04-06T18:25:29.3374541Z Writing commits to file C:\Users\VSSADM~1\AppData\Local\Temp\commits__Udacity Ecommerce App_v1.json
+2021-04-06T18:25:29.3375237Z Uploading C:\Users\VSSADM~1\AppData\Local\Temp\commits__Udacity Ecommerce App_v1.json as attachment
+2021-04-06T18:25:29.3392164Z Successfully uploaded commits attachment
+2021-04-06T18:25:29.3392642Z Getting commit messages from commits
+2021-04-06T18:25:29.3393459Z Downloading work items associated with the build 11
+2021-04-06T18:25:29.3396003Z Downloading content from Jenkins server:http://52.152.224.145:8080//job/Udacity Ecommerce App//11/api/json?tree=actions[issues[*],serverURL] with strict SSL:true
+2021-04-06T18:25:29.3910536Z Writing work items to C:\Users\VSSADM~1\AppData\Local\Temp\workitems__Udacity Ecommerce App_v1.json
+2021-04-06T18:25:29.3920535Z Uploading C:\Users\VSSADM~1\AppData\Local\Temp\workitems__Udacity Ecommerce App_v1.json as attachment
+2021-04-06T18:25:29.3933323Z Successfully uploaded work item attachment
+2021-04-06T18:25:29.3933709Z Commits and work items downloaded successfully
+2021-04-06T18:25:29.4034289Z ##[section]Finishing: Download artifact - _Udacity Ecommerce App
