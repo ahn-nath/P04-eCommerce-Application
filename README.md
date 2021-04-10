@@ -30,6 +30,3 @@ Once you open up the project with your preferred IDE, you should also be able to
 1. Within your project in IDE, Navigate to `P04-eCommerce-Application/src/test/java/com/example/demo`.
 2. Within that directory, go to the 'controllers' folder and run the tests.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md]()
